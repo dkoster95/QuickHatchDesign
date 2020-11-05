@@ -24,6 +24,14 @@
                                     <action selector="standardActionSheetTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="B9i-ZV-BSA"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPo-nT-9ky">
+                                <rect key="frame" x="178" y="415" width="58" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Slide Up"/>
+                                <connections>
+                                    <action selector="slideup:" destination="BYZ-38-t0r" eventType="touchUpInside" id="288-uD-SNA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

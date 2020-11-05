@@ -51,7 +51,7 @@ public class QHStandardActionSheet: BaseActionSheet {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override var height: CGFloat {
+    public override var height: CGFloat {
         var height: CGFloat = 0
         if title != nil {
             height += 60
@@ -64,7 +64,7 @@ public class QHStandardActionSheet: BaseActionSheet {
         items.append(item)
     }
     
-    override func configureContentView(in view: UIView) {
+    public override func configureContentView(in view: UIView) {
         translatesAutoresizingMaskIntoConstraints = false
         super.configureContentView(in: view)
         let constraints = [

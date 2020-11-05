@@ -7,13 +7,13 @@
 
 import UIKit
 
-public protocol ActionSheet {
+public protocol Modal {
     func show(in view: UIView, dismissable: Bool, animated: Bool)
     func show(dismissable: Bool, animated: Bool)
     func dismiss(animated: Bool)
 }
 
-public extension ActionSheet {
+public extension Modal {
     
     func show(in view: UIView, dismissable: Bool = true, animated: Bool = true) {
         show(in: view, dismissable: dismissable, animated: animated)

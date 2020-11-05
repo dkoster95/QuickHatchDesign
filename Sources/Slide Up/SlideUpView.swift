@@ -1,5 +1,5 @@
 //
-//  BaseActionSheet.swift
+//  SlideUpView.swift
 //  QuickHatchDesign
 //
 //  Created by Daniel Koster on 11/5/20.
@@ -7,19 +7,7 @@
 
 import UIKit
 
-private struct ActionSheetConfig {
-    static let alpha: CGFloat = 0.6
-    struct Animation {
-        static let duration = 0.25
-        static let delay: TimeInterval = 0
-        static let springDamping: CGFloat = 0.9
-        static let initialSpring:CGFloat = 0
-        static let options: UIView.AnimationOptions = [.curveEaseIn, .allowUserInteraction]
-    }
-}
-
-open class BaseActionSheet: UIView, Modal {
-    
+open class SlideUpView: UIView, Modal {
     public override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
@@ -29,40 +17,27 @@ open class BaseActionSheet: UIView, Modal {
         super.init(coder: coder)
     }
     
+    public init() {
+        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     private lazy var backgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.alpha = ActionSheetConfig.alpha
+        view.alpha = 0.6
         return view
     }()
     
-    open lazy var contentStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 0
-        stackView.distribution = .fill
-        stackView.alignment = .fill
-        stackView.layer.cornerRadius = 15
-        stackView.backgroundColor = .clear
-        stackView.layer.masksToBounds = true
-        stackView.clipsToBounds = true
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
+    open lazy var contentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .orange
+        view.layer.masksToBounds = true
+        view.clipsToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
-    
-    open var height: CGFloat {
-        return 200
-    }
-    
-    public func show(in view: UIView, dismissable: Bool, animated: Bool) {
-        addSubview(backgroundView)
-        addSubview(contentStackView)
-        view.addSubview(self)
-        configure(in: view)
-        presentBackgroundView(in: view, dismissable: dismissable,animated: animated)
-        presentContentView(in: view,animated: animated)
-    }
     
     private func configure(in view: UIView) {
         let constraints = [
@@ -83,6 +58,15 @@ open class BaseActionSheet: UIView, Modal {
         show(in: targetView, dismissable: dismissable, animated: animated)
     }
     
+    public func show(in view: UIView, dismissable: Bool, animated: Bool) {
+        addSubview(backgroundView)
+        addSubview(contentView)
+        view.addSubview(self)
+        configure(in: view)
+        presentBackgroundView(in: view, dismissable: dismissable,animated: animated)
+        presentContentView(in: view,animated: animated)
+    }
+    
     func presentBackgroundView(in view: UIView, dismissable: Bool, animated: Bool) {
         if dismissable {
             configureBackgroundTap()
@@ -91,7 +75,7 @@ open class BaseActionSheet: UIView, Modal {
         if animated {
             backgroundView.alpha = 0
             animate(animation: { [weak self] in
-                self?.backgroundView.alpha = ActionSheetConfig.alpha
+                self?.backgroundView.alpha = 0.6
             }, completion: nil)
         }
     }
@@ -118,20 +102,20 @@ open class BaseActionSheet: UIView, Modal {
     func presentContentView(in view: UIView, animated: Bool) {
         configureContentView(in: view)
         if animated {
-            let frame = contentStackView.frame
-            contentStackView.frame.origin.y += contentStackView.frame.height + 100
+            let frame = contentView.frame
+            contentView.frame.origin.y += contentView.frame.height + 100
             animate(animation: { [weak self] in
-                self?.contentStackView.frame = frame
+                self?.contentView.frame = frame
             }, completion: nil)
         }
     }
     
     open func configureContentView(in view: UIView) {
         let constraints = [
-            contentStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            contentStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            contentStackView.heightAnchor.constraint(equalToConstant: height),
-            contentStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            contentView.topAnchor.constraint(equalTo: view.centerYAnchor),
+            contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
     }
@@ -140,9 +124,9 @@ open class BaseActionSheet: UIView, Modal {
         if animated {
             animate(animation: { [weak self] in
                 guard let self = self else { return }
-                self.contentStackView.frame.origin.y += self.contentStackView.frame.height + 100
+                self.contentView.frame.origin.y += self.contentView.frame.height + 100
             }, completion: { [weak self] finished in
-                self?.contentStackView.removeFromSuperview()
+                self?.contentView.removeFromSuperview()
                 self?.removeFromSuperview()
             })
             animate(animation: { [weak self] in
@@ -154,11 +138,11 @@ open class BaseActionSheet: UIView, Modal {
     }
     
     private func animate(animation: @escaping () -> (), completion: ((Bool) -> Void)?) {
-        UIView.animate(withDuration: ActionSheetConfig.Animation.duration,
-                       delay: ActionSheetConfig.Animation.delay,
-                       usingSpringWithDamping: ActionSheetConfig.Animation.springDamping,
-                       initialSpringVelocity: ActionSheetConfig.Animation.initialSpring,
-                       options: ActionSheetConfig.Animation.options,
+        UIView.animate(withDuration: 0.45,
+                       delay: 0,
+                       usingSpringWithDamping: 0.9,
+                       initialSpringVelocity: 0,
+                       options: [.curveEaseIn, .allowUserInteraction],
                        animations: animation,
                        completion: completion)
     }

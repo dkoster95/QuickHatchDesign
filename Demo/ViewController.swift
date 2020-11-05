@@ -13,7 +13,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    @IBAction func slideup(_ sender: Any) {
+        let slideUp = SlideUpView()
+        slideUp.show()
+    }
+    
     @IBAction func standardActionSheetTap(_ sender: Any) {
         let actionSheet = QHStandardActionSheet(title: NSAttributedString(string: "Title here"))
         let acItems = itemsStr.map { item -> QHActionSheetItem in
