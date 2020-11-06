@@ -18,6 +18,10 @@ class ViewController: UIViewController {
         slideUp.show()
     }
     
+    @IBAction func slidedown(_ sender: Any) {
+        let slideDownView = SlideDownView()
+        slideDownView.show()
+    }
     @IBAction func standardActionSheetTap(_ sender: Any) {
         let actionSheet = QHStandardActionSheet(title: NSAttributedString(string: "Title here"))
         let acItems = itemsStr.map { item -> QHActionSheetItem in

@@ -32,6 +32,14 @@
                                     <action selector="slideup:" destination="BYZ-38-t0r" eventType="touchUpInside" id="288-uD-SNA"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pUR-XB-ei9">
+                                <rect key="frame" x="170" y="473" width="75" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Slide down"/>
+                                <connections>
+                                    <action selector="slidedown:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7EL-go-JR4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

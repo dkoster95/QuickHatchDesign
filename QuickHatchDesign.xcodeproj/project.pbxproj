@@ -22,6 +22,7 @@
 		7FD4AC0F2554704D00B2DB83 /* QuickHatchDesign.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7FD4ABBB25545EAB00B2DB83 /* QuickHatchDesign.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7FD4AC3325547ADB00B2DB83 /* Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD4AC3225547ADB00B2DB83 /* Views.swift */; };
 		7FD4AC4125548FF900B2DB83 /* SlideUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD4AC4025548FF900B2DB83 /* SlideUpView.swift */; };
+		7FD4AC462554966D00B2DB83 /* SlideDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD4AC452554966D00B2DB83 /* SlideDownView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		7FD4ABE925546D8500B2DB83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7FD4AC3225547ADB00B2DB83 /* Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views.swift; sourceTree = "<group>"; };
 		7FD4AC4025548FF900B2DB83 /* SlideUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideUpView.swift; sourceTree = "<group>"; };
+		7FD4AC452554966D00B2DB83 /* SlideDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideDownView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				7FD4ABBF25545EAB00B2DB83 /* Info.plist */,
 				7FD4ABBE25545EAB00B2DB83 /* QuickHatchDesign.h */,
 				7FD4AC3F25548FD700B2DB83 /* Slide Up */,
+				7FD4AC452554966D00B2DB83 /* SlideDownView.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7FD4ABCB2554603400B2DB83 /* BaseActionSheet.swift in Sources */,
+				7FD4AC462554966D00B2DB83 /* SlideDownView.swift in Sources */,
 				7FD4ABCE2554667400B2DB83 /* QHStandardActionSheet.swift in Sources */,
 				7FD4ABC825545ECA00B2DB83 /* Modal.swift in Sources */,
 				7FD4AC4125548FF900B2DB83 /* SlideUpView.swift in Sources */,

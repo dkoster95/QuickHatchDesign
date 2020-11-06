@@ -1,5 +1,5 @@
 //
-//  SlideUpView.swift
+//  SlideDownView.swift
 //  QuickHatchDesign
 //
 //  Created by Daniel Koster on 11/5/20.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class SlideUpView: UIView, Modal {
+open class SlideDownView: UIView, Modal {
     public override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
@@ -103,9 +103,9 @@ open class SlideUpView: UIView, Modal {
         configureContentView(in: view)
         if animated {
             let frame = contentView.frame
-            contentView.frame.origin.y += contentView.frame.height + 500
+            contentView.frame.origin.y -= contentView.frame.height + 500
             animate(animation: { [weak self] in
-                self?.contentView.frame = frame
+                self?.contentView.frame.origin.y = frame.origin.y
             }, completion: nil)
         }
     }
@@ -114,8 +114,8 @@ open class SlideUpView: UIView, Modal {
         let constraints = [
             contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            contentView.topAnchor.constraint(equalTo: view.centerYAnchor),
-            contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            contentView.topAnchor.constraint(equalTo: view.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: view.centerYAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
     }
@@ -124,7 +124,7 @@ open class SlideUpView: UIView, Modal {
         if animated {
             animate(animation: { [weak self] in
                 guard let self = self else { return }
-                self.contentView.frame.origin.y += self.contentView.frame.height + 500
+                self.contentView.frame.origin.y = -self.contentView.frame.height
             }, completion: { [weak self] finished in
                 self?.contentView.removeFromSuperview()
                 self?.removeFromSuperview()
@@ -147,3 +147,4 @@ open class SlideUpView: UIView, Modal {
                        completion: completion)
     }
 }
+
