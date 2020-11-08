@@ -7,11 +7,7 @@
 
 import UIKit
 
-open class SlideDownView: UIView, Modal {
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        translatesAutoresizingMaskIntoConstraints = false
-    }
+open class SlideDownView: BaseModal {
     
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -22,14 +18,6 @@ open class SlideDownView: UIView, Modal {
         translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private lazy var backgroundView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .black
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.alpha = 0.6
-        return view
-    }()
-    
     open lazy var contentView: UIView = {
         let view = UIView()
         view.backgroundColor = .orange
@@ -39,65 +27,12 @@ open class SlideDownView: UIView, Modal {
         return view
     }()
     
-    private func configure(in view: UIView) {
-        let constraints = [
-                leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                topAnchor.constraint(equalTo: view.topAnchor),
-                bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ]
-        NSLayoutConstraint.activate(constraints)
-    }
-    
-    private var keyWindow: UIView? {
-        return UIApplication.shared.windows.filter({ $0.isKeyWindow }).first
-    }
-    
-    public func show(dismissable: Bool, animated: Bool) {
-        guard let targetView = keyWindow else { return }
-        show(in: targetView, dismissable: dismissable, animated: animated)
-    }
-    
-    public func show(in view: UIView, dismissable: Bool, animated: Bool) {
-        addSubview(backgroundView)
+    public override func show(in view: UIView, dismissable: Bool, animated: Bool) {
+        super.show(in: view, dismissable: dismissable, animated: animated)
         addSubview(contentView)
-        view.addSubview(self)
-        configure(in: view)
-        presentBackgroundView(in: view, dismissable: dismissable,animated: animated)
         presentContentView(in: view,animated: animated)
     }
-    
-    func presentBackgroundView(in view: UIView, dismissable: Bool, animated: Bool) {
-        if dismissable {
-            configureBackgroundTap()
-        }
-        configureBackgroundView(in: view)
-        if animated {
-            backgroundView.alpha = 0
-            animate(animation: { [weak self] in
-                self?.backgroundView.alpha = 0.6
-            }, completion: nil)
-        }
-    }
-    
-    private func configureBackgroundView(in view: UIView) {
-        let constraints = [
-            backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            backgroundView.topAnchor.constraint(equalTo: topAnchor),
-            backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ]
-        NSLayoutConstraint.activate(constraints)
-    }
-    
-    private func configureBackgroundTap() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
-        backgroundView.addGestureRecognizer(tapGesture)
-    }
-    
-    @objc private func tap() {
-        dismiss(animated: true)
-    }
+
     
     func presentContentView(in view: UIView, animated: Bool) {
         configureContentView(in: view)
@@ -120,7 +55,7 @@ open class SlideDownView: UIView, Modal {
         NSLayoutConstraint.activate(constraints)
     }
     
-    public func dismiss(animated: Bool) {
+    public override func dismiss(animated: Bool) {
         if animated {
             animate(animation: { [weak self] in
                 guard let self = self else { return }
@@ -129,22 +64,18 @@ open class SlideDownView: UIView, Modal {
                 self?.contentView.removeFromSuperview()
                 self?.removeFromSuperview()
             })
-            animate(animation: { [weak self] in
-                self?.backgroundView.alpha = 0
-            }, completion: { [weak self] finished in
-                self?.backgroundView.removeFromSuperview()
-            })
         }
+        super.dismiss(animated: animated)
     }
     
-    private func animate(animation: @escaping () -> (), completion: ((Bool) -> Void)?) {
-        UIView.animate(withDuration: 0.4,
-                       delay: 0,
-                       usingSpringWithDamping: 0.9,
-                       initialSpringVelocity: 0,
-                       options: [.curveEaseInOut, .allowUserInteraction],
-                       animations: animation,
-                       completion: completion)
-    }
+//    private func animate(animation: @escaping () -> (), completion: ((Bool) -> Void)?) {
+//        UIView.animate(withDuration: 0.4,
+//                       delay: 0,
+//                       usingSpringWithDamping: 0.9,
+//                       initialSpringVelocity: 0,
+//                       options: [.curveEaseInOut, .allowUserInteraction],
+//                       animations: animation,
+//                       completion: completion)
+//    }
 }
 

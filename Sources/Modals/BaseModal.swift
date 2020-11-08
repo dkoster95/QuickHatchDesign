@@ -7,8 +7,19 @@
 
 import UIKit
 
+public struct ModalConfig {
+    struct Animation {
+        let duration: Double
+        let delay: TimeInterval
+        let springDamping: CGFloat
+        let inicialVelocity: CGFloat
+    }
+    let animation: Animation
+    let alpha: CGFloat
+}
 
-public class BaseModal: UIView, Modal {
+
+open class BaseModal: UIView, Modal {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,11 +30,19 @@ public class BaseModal: UIView, Modal {
         super.init(coder: coder)
     }
     
+    open var config: ModalConfig {
+        return ModalConfig(animation: ModalConfig.Animation(duration: 0.4,
+                                                            delay: 0,
+                                                            springDamping: 0.9,
+                                                            inicialVelocity: 0),
+                           alpha: 0.6)
+    }
+    
     private lazy var backgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.alpha = 0.6
+        view.alpha = config.alpha
         return view
     }()
     
@@ -46,11 +65,11 @@ public class BaseModal: UIView, Modal {
         dismiss(animated: true)
     }
     
-    private func animate(animation: @escaping () -> (), completion: ((Bool) -> Void)?) {
-        UIView.animate(withDuration: 0.4,
-                       delay: 0,
-                       usingSpringWithDamping: 0.9,
-                       initialSpringVelocity: 0,
+    func animate(animation: @escaping () -> (), completion: ((Bool) -> Void)?) {
+        UIView.animate(withDuration: config.animation.duration,
+                       delay: config.animation.delay,
+                       usingSpringWithDamping: config.animation.springDamping,
+                       initialSpringVelocity: config.animation.inicialVelocity,
                        options: [.curveEaseInOut, .allowUserInteraction],
                        animations: animation,
                        completion: completion)
@@ -64,7 +83,8 @@ public class BaseModal: UIView, Modal {
         if animated {
             backgroundView.alpha = 0
             animate(animation: { [weak self] in
-                self?.backgroundView.alpha = 0.6
+                guard let self = self else { return }
+                self.backgroundView.alpha = self.config.alpha
             }, completion: nil)
         }
     }
@@ -90,7 +110,6 @@ public class BaseModal: UIView, Modal {
     
     public func show(in view: UIView, dismissable: Bool, animated: Bool) {
         addSubview(backgroundView)
-//        addSubview(contentStackView)
         view.addSubview(self)
         configure(in: view)
         presentBackgroundView(in: view, dismissable: dismissable,animated: animated)
@@ -105,5 +124,9 @@ public class BaseModal: UIView, Modal {
                 self?.removeFromSuperview()
             })
         }
+    }
+    
+    deinit {
+        print("deiniting modal")
     }
 }
