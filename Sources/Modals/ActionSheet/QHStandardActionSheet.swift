@@ -64,7 +64,7 @@ public class QHStandardActionSheet: BaseActionSheet {
         items.append(item)
     }
     
-    public override func configureContentView(in view: UIView) {
+    override func configureContentView(in view: UIView) {
         translatesAutoresizingMaskIntoConstraints = false
         super.configureContentView(in: view)
         let constraints = [

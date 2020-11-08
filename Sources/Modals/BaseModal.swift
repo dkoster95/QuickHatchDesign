@@ -7,7 +7,7 @@
 
 import UIKit
 
-public struct ModalConfig {
+struct ModalConfig {
     struct Animation {
         let duration: Double
         let delay: TimeInterval
@@ -30,7 +30,7 @@ open class BaseModal: UIView, Modal {
         super.init(coder: coder)
     }
     
-    open var config: ModalConfig {
+    var config: ModalConfig {
         return ModalConfig(animation: ModalConfig.Animation(duration: 0.4,
                                                             delay: 0,
                                                             springDamping: 0.9,
@@ -75,7 +75,7 @@ open class BaseModal: UIView, Modal {
                        completion: completion)
     }
     
-    func presentBackgroundView(in view: UIView, dismissable: Bool, animated: Bool) {
+    private func presentBackgroundView(in view: UIView, dismissable: Bool, animated: Bool) {
         if dismissable {
             configureBackgroundTap()
         }

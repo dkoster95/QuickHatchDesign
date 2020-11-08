@@ -47,7 +47,7 @@ open class BaseActionSheet: BaseModal {
         return 200
     }
     
-    open override var config: ModalConfig {
+    override var config: ModalConfig {
         return ModalConfig(animation: ModalConfig.Animation(duration: ActionSheetConfig.Animation.duration,
                                                             delay: ActionSheetConfig.Animation.delay,
                                                             springDamping: ActionSheetConfig.Animation.springDamping,
@@ -73,7 +73,7 @@ open class BaseActionSheet: BaseModal {
         }
     }
     
-    open func configureContentView(in view: UIView) {
+    func configureContentView(in view: UIView) {
         let constraints = [
             contentStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             contentStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),

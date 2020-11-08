@@ -14,13 +14,15 @@ open class SlideDownView: BaseModal {
     }
     
     private var content: UIView = UIView()
-    public init(content: UIView) {
+    private var heightRatio: CGFloat = 0.5
+    public init(content: UIView, heightRatio: CGFloat = 0.5) {
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         translatesAutoresizingMaskIntoConstraints = false
         self.content = content
+        self.heightRatio = heightRatio
     }
     
-    open lazy var contentView: UIView = {
+    lazy var contentView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
         view.layer.masksToBounds = true
@@ -48,12 +50,12 @@ open class SlideDownView: BaseModal {
         }
     }
     
-    open func configureContentView(in view: UIView) {
+    func configureContentView(in view: UIView) {
         let constraints = [
             contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             contentView.topAnchor.constraint(equalTo: view.topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: view.centerYAnchor),
+            contentView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: heightRatio),
             content.topAnchor.constraint(equalTo: contentView.topAnchor),
             content.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             content.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),

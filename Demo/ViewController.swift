@@ -25,12 +25,12 @@ class ViewController: UIViewController {
     }()
     
     @IBAction func slideup(_ sender: Any) {
-        let slideUp = SlideUpView(content: contentView)
+        let slideUp = SlideUpView(content: contentView, heightRatio: 0.7)
         slideUp.show()
     }
     
     @IBAction func slidedown(_ sender: Any) {
-        let slideDownView = SlideDownView(content: contentView)
+        let slideDownView = SlideDownView(content: contentView, heightRatio: 0.25)
         slideDownView.show()
     }
     @IBAction func standardActionSheetTap(_ sender: Any) {
