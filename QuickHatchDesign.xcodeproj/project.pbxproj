@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F126396255776E7001C1537 /* BaseModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F126395255776E7001C1537 /* BaseModal.swift */; };
 		7FD4ABC025545EAB00B2DB83 /* QuickHatchDesign.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FD4ABBE25545EAB00B2DB83 /* QuickHatchDesign.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FD4ABC825545ECA00B2DB83 /* Modal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD4ABC725545ECA00B2DB83 /* Modal.swift */; };
 		7FD4ABCB2554603400B2DB83 /* BaseActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD4ABCA2554603400B2DB83 /* BaseActionSheet.swift */; };
@@ -50,6 +51,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7F126395255776E7001C1537 /* BaseModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModal.swift; sourceTree = "<group>"; };
 		7FD4ABBB25545EAB00B2DB83 /* QuickHatchDesign.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QuickHatchDesign.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FD4ABBE25545EAB00B2DB83 /* QuickHatchDesign.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickHatchDesign.h; sourceTree = "<group>"; };
 		7FD4ABBF25545EAB00B2DB83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -89,6 +91,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7F12639425577666001C1537 /* Modals */ = {
+			isa = PBXGroup;
+			children = (
+				7FD4ABD425546D3400B2DB83 /* ActionSheet */,
+				7F126395255776E7001C1537 /* BaseModal.swift */,
+				7FD4ABC725545ECA00B2DB83 /* Modal.swift */,
+				7F126398255776F1001C1537 /* Slide Down */,
+				7FD4AC3F25548FD700B2DB83 /* Slide Up */,
+			);
+			path = Modals;
+			sourceTree = "<group>";
+		};
+		7F126398255776F1001C1537 /* Slide Down */ = {
+			isa = PBXGroup;
+			children = (
+				7FD4AC452554966D00B2DB83 /* SlideDownView.swift */,
+			);
+			path = "Slide Down";
+			sourceTree = "<group>";
+		};
 		7FD4ABB125545EAA00B2DB83 = {
 			isa = PBXGroup;
 			children = (
@@ -111,12 +133,10 @@
 		7FD4ABBD25545EAB00B2DB83 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				7FD4ABD425546D3400B2DB83 /* ActionSheet */,
+				7F12639425577666001C1537 /* Modals */,
 				7FD4AC3125547AD000B2DB83 /* Components */,
 				7FD4ABBF25545EAB00B2DB83 /* Info.plist */,
 				7FD4ABBE25545EAB00B2DB83 /* QuickHatchDesign.h */,
-				7FD4AC3F25548FD700B2DB83 /* Slide Up */,
-				7FD4AC452554966D00B2DB83 /* SlideDownView.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -124,7 +144,6 @@
 		7FD4ABD425546D3400B2DB83 /* ActionSheet */ = {
 			isa = PBXGroup;
 			children = (
-				7FD4ABC725545ECA00B2DB83 /* Modal.swift */,
 				7FD4ABCA2554603400B2DB83 /* BaseActionSheet.swift */,
 				7FD4ABCD2554667400B2DB83 /* QHStandardActionSheet.swift */,
 				7FD4ABD0255467ED00B2DB83 /* QHStandardActionSheetCell.swift */,
@@ -284,6 +303,7 @@
 			files = (
 				7FD4ABCB2554603400B2DB83 /* BaseActionSheet.swift in Sources */,
 				7FD4AC462554966D00B2DB83 /* SlideDownView.swift in Sources */,
+				7F126396255776E7001C1537 /* BaseModal.swift in Sources */,
 				7FD4ABCE2554667400B2DB83 /* QHStandardActionSheet.swift in Sources */,
 				7FD4ABC825545ECA00B2DB83 /* Modal.swift in Sources */,
 				7FD4AC4125548FF900B2DB83 /* SlideUpView.swift in Sources */,
