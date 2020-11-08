@@ -9,9 +9,11 @@ import UIKit
 
 open class SlideUpView: BaseModal {
     
-    public init() {
+    private var content: UIView = UIView()
+    public init(content: UIView) {
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         translatesAutoresizingMaskIntoConstraints = false
+        self.content = content
     }
     
     public required init?(coder: NSCoder) {
@@ -20,7 +22,7 @@ open class SlideUpView: BaseModal {
     
     open lazy var contentView: UIView = {
         let view = UIView()
-        view.backgroundColor = .orange
+        view.backgroundColor = .clear
         view.layer.masksToBounds = true
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -55,11 +57,16 @@ open class SlideUpView: BaseModal {
     }
     
     open func configureContentView(in view: UIView) {
+        contentView.addSubview(content)
         let constraints = [
             contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             contentView.topAnchor.constraint(equalTo: view.centerYAnchor),
-            contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            content.topAnchor.constraint(equalTo: contentView.topAnchor),
+            content.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            content.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            content.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
     }

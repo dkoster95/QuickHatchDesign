@@ -13,13 +13,24 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    open lazy var contentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .blue
+        view.layer.masksToBounds = true
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 13
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     @IBAction func slideup(_ sender: Any) {
-        let slideUp = SlideUpView()
+        let slideUp = SlideUpView(content: contentView)
         slideUp.show()
     }
     
     @IBAction func slidedown(_ sender: Any) {
-        let slideDownView = SlideDownView()
+        let slideDownView = SlideDownView(content: contentView)
         slideDownView.show()
     }
     @IBAction func standardActionSheetTap(_ sender: Any) {

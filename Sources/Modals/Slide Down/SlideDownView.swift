@@ -13,14 +13,16 @@ open class SlideDownView: BaseModal {
         super.init(coder: coder)
     }
     
-    public init() {
+    private var content: UIView = UIView()
+    public init(content: UIView) {
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         translatesAutoresizingMaskIntoConstraints = false
+        self.content = content
     }
     
     open lazy var contentView: UIView = {
         let view = UIView()
-        view.backgroundColor = .orange
+        view.backgroundColor = .clear
         view.layer.masksToBounds = true
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -30,6 +32,7 @@ open class SlideDownView: BaseModal {
     public override func show(in view: UIView, dismissable: Bool, animated: Bool) {
         super.show(in: view, dismissable: dismissable, animated: animated)
         addSubview(contentView)
+        contentView.addSubview(content)
         presentContentView(in: view,animated: animated)
     }
 
@@ -50,7 +53,11 @@ open class SlideDownView: BaseModal {
             contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             contentView.topAnchor.constraint(equalTo: view.topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: view.centerYAnchor)
+            contentView.bottomAnchor.constraint(equalTo: view.centerYAnchor),
+            content.topAnchor.constraint(equalTo: contentView.topAnchor),
+            content.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            content.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            content.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
     }
@@ -68,14 +75,5 @@ open class SlideDownView: BaseModal {
         super.dismiss(animated: animated)
     }
     
-//    private func animate(animation: @escaping () -> (), completion: ((Bool) -> Void)?) {
-//        UIView.animate(withDuration: 0.4,
-//                       delay: 0,
-//                       usingSpringWithDamping: 0.9,
-//                       initialSpringVelocity: 0,
-//                       options: [.curveEaseInOut, .allowUserInteraction],
-//                       animations: animation,
-//                       completion: completion)
-//    }
 }
 
