@@ -7,59 +7,36 @@
 
 import UIKit
 
-open class SlideUpView: BaseModal {
+open class SlideUpView: ContentModal {
     
-    private var content: UIView = UIView()
-    private var heightRatio: CGFloat = 0.5
-    public init(content: UIView, heightRatio: CGFloat = 0.5) {
-        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        translatesAutoresizingMaskIntoConstraints = false
-        self.content = content
-        self.heightRatio = heightRatio
-    }
     
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    lazy var contentView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        view.layer.masksToBounds = true
-        view.clipsToBounds = true
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private func configure(in view: UIView) {
-        let constraints = [
-                leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                topAnchor.constraint(equalTo: view.topAnchor),
-                bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ]
-        NSLayoutConstraint.activate(constraints)
+    public override init(content: UIView, heightRatio: CGFloat = 0.5) {
+        super.init(content: content, heightRatio: heightRatio)
     }
     
-    public override func show(in view: UIView, dismissable: Bool, animated: Bool) {
-        super.show(in: view, dismissable: dismissable, animated: animated)
-        addSubview(contentView)
-        presentContentView(in: view,animated: animated)
+    override func animatePresentation() {
+        let frame = contentView.frame
+        contentView.frame.origin.y += contentView.frame.height + 500
+        animate(animation: { [weak self] in
+            self?.contentView.frame = frame
+        }, completion: nil)
     }
     
-    func presentContentView(in view: UIView, animated: Bool) {
-        configureContentView(in: view)
-        if animated {
-            let frame = contentView.frame
-            contentView.frame.origin.y += contentView.frame.height + 500
-            animate(animation: { [weak self] in
-                self?.contentView.frame = frame
-            }, completion: nil)
-        }
+    override func animateDismissal() {
+        animate(animation: { [weak self] in
+            guard let self = self else { return }
+            self.contentView.frame.origin.y += self.contentView.frame.height + 500
+        }, completion: { [weak self] finished in
+            self?.contentView.removeFromSuperview()
+        })
     }
     
-    func configureContentView(in view: UIView) {
-        contentView.addSubview(content)
+    override func configureContentView(in view: UIView) {
+        super.configureContentView(in: view)
         let constraints = [
             contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -72,16 +49,5 @@ open class SlideUpView: BaseModal {
         ]
         NSLayoutConstraint.activate(constraints)
     }
-    
-    public override func dismiss(animated: Bool) {
-        if animated {
-            animate(animation: { [weak self] in
-                guard let self = self else { return }
-                self.contentView.frame.origin.y += self.contentView.frame.height + 500
-            }, completion: { [weak self] finished in
-                self?.contentView.removeFromSuperview()
-            })
-        }
-        super.dismiss(animated: animated)
-    }
+
 }
